@@ -9,6 +9,8 @@ import path from 'src/constants/path'
 import { Category } from 'src/types/category.type'
 import { QueryConfig } from '../../ProductList'
 import { yupResolver } from '@hookform/resolvers/yup'
+import RatingStar from '../RatingStar'
+import { omit } from 'lodash'
 
 interface Props {
   queryConfig: QueryConfig
@@ -50,7 +52,12 @@ export default function AsideFilter({ queryConfig, categories }: Props) {
     })
   })
 
-  console.log(errors)
+  const handleRemoveAll = () => {
+    navigate({
+      pathname: path.home,
+      search: createSearchParams(omit(queryConfig, ['price_min', 'price_max', 'rating_filter', 'category'])).toString()
+    })
+  }
 
   return (
     <div className='py-4'>
@@ -173,10 +180,10 @@ export default function AsideFilter({ queryConfig, categories }: Props) {
       </div>
       <div className='my-4 h-[1px] bg-gray-300' />
       <div className='text-sm'>Đánh giá</div>
-      {/* <RatingStars queryConfig={queryConfig} /> */}
+      <RatingStar queryConfig={queryConfig} />
       <div className='my-4 h-[1px] bg-gray-300' />
       <Button
-        // onClick={handleRemoveAll}
+        onClick={handleRemoveAll}
         className='flex w-full items-center justify-center bg-orange p-2 text-sm uppercase text-white hover:bg-orange/80'
       >
         Xóa tất cả
