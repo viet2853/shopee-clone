@@ -1,16 +1,17 @@
 import { useQuery } from '@tanstack/react-query'
-import { useEffect, useMemo, useState } from 'react'
+import { useEffect, useMemo, useRef, useState } from 'react'
 import { useParams } from 'react-router-dom'
 import DOMPurify from 'dompurify'
 
 import productApi from 'src/api/product.api'
 import InputNumber from 'src/components/InputNumber'
 import ProductRating from 'src/components/ProductRating'
-import { formatCurrency, formatNumberToSocialStyle, rateSale } from 'src/utils/utils'
+import { formatCurrency, formatNumberToSocialStyle, getIdFromNameId, rateSale } from 'src/utils/utils'
 import { Product } from 'src/types/product.type'
 
 export default function ProductDetail() {
-  const { id } = useParams()
+  const { nameId } = useParams()
+  const id = getIdFromNameId(nameId as string)
   const { data: productDetailData } = useQuery({
     queryKey: ['product', id],
     queryFn: () => productApi.getProductDetail(id as string)
@@ -20,8 +21,10 @@ export default function ProductDetail() {
   const product = productDetailData?.data.data
   const currentImage = useMemo(
     () => (product ? product?.images.slice(...currentIndexImages) : []),
+    // eslint-disable-next-line prettier/prettier
     [product, currentIndexImages]
   )
+  const imgRef = useRef<HTMLImageElement>(null)
 
   useEffect(() => {
     if (product && product.images.length > 0) {
@@ -45,6 +48,24 @@ export default function ProductDetail() {
     setActiveImage(img)
   }
 
+  const handleZoom = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
+    const rect = e.currentTarget.getBoundingClientRect()
+    const image = imgRef.current as HTMLImageElement
+    const { naturalHeight, naturalWidth } = image
+    const { offsetX, offsetY } = e.nativeEvent
+    const top = offsetY * (1 - naturalHeight / rect.height)
+    const left = offsetX * (1 - naturalWidth / rect.width)
+    image.style.width = naturalWidth + 'px'
+    image.style.height = naturalHeight + 'px'
+    image.style.maxWidth = 'unset'
+    image.style.top = top + 'px'
+    image.style.left = left + 'px'
+  }
+
+  const handleRemoveZoom = () => {
+    imgRef.current?.removeAttribute('style')
+  }
+
   if (!product) return null
   return (
     <div className='bg-gray-200 py-6'>
@@ -52,51 +73,56 @@ export default function ProductDetail() {
         <div className='bg-white p-4 shadow'>
           <div className='grid grid-cols-12 gap-9'>
             <div className='col-span-5'>
-              <div className='relative w-full pt-[100%] shadow'>
+              <div
+                className='relative w-full cursor-zoom-in overflow-hidden pt-[100%] shadow '
+                onMouseMove={handleZoom}
+                onMouseLeave={handleRemoveZoom}
+              >
                 <img
                   src={activeImage}
                   alt={product.name}
-                  className='absolute top-0 left-0 h-full w-full bg-white object-cover'
+                  className='pointer-events-none absolute top-0 left-0 h-full w-full  bg-white object-cover'
+                  ref={imgRef}
                 />
-                <div className='relative mt-4 grid grid-cols-5 gap-1'>
-                  <button onClick={prev} className='absolute left-0 top-1/2 z-10 h-9 w-5 -translate-y-1/2 bg-black/20'>
-                    <svg
-                      xmlns='http://www.w3.org/2000/svg'
-                      fill='none'
-                      viewBox='0 0 24 24'
-                      strokeWidth={1.5}
-                      stroke='currentColor'
-                      className='h-5 w-5 text-white'
-                    >
-                      <path strokeLinecap='round' strokeLinejoin='round' d='M15.75 19.5L8.25 12l7.5-7.5' />
-                    </svg>
-                  </button>
-                  {currentImage.map((image) => {
-                    const isActive = image === activeImage
-                    return (
-                      <div className='relative w-full pt-[100%]' key={image} onMouseEnter={() => chooseActive(image)}>
-                        <img
-                          src={image}
-                          alt={image}
-                          className='absolute top-0 left-0 h-full w-full cursor-pointer bg-white object-cover'
-                        />
-                        {isActive && <div className='absolute inset-0 border-2 border-orange'></div>}
-                      </div>
-                    )
-                  })}
-                  <button onClick={next} className='absolute right-0 top-1/2 z-10 h-9 w-5 -translate-y-1/2 bg-black/20'>
-                    <svg
-                      xmlns='http://www.w3.org/2000/svg'
-                      fill='none'
-                      viewBox='0 0 24 24'
-                      strokeWidth={1.5}
-                      stroke='currentColor'
-                      className='h-6 w-6 text-white'
-                    >
-                      <path strokeLinecap='round' strokeLinejoin='round' d='M8.25 4.5l7.5 7.5-7.5 7.5' />
-                    </svg>
-                  </button>
-                </div>
+              </div>
+              <div className='relative mt-4 grid grid-cols-5 gap-1'>
+                <button onClick={prev} className='absolute left-0 top-1/2 z-10 h-9 w-5 -translate-y-1/2 bg-black/20'>
+                  <svg
+                    xmlns='http://www.w3.org/2000/svg'
+                    fill='none'
+                    viewBox='0 0 24 24'
+                    strokeWidth={1.5}
+                    stroke='currentColor'
+                    className='h-5 w-5 text-white'
+                  >
+                    <path strokeLinecap='round' strokeLinejoin='round' d='M15.75 19.5L8.25 12l7.5-7.5' />
+                  </svg>
+                </button>
+                {currentImage.map((image) => {
+                  const isActive = image === activeImage
+                  return (
+                    <div className='relative w-full pt-[100%]' key={image} onMouseEnter={() => chooseActive(image)}>
+                      <img
+                        src={image}
+                        alt={image}
+                        className='absolute top-0 left-0 h-full w-full cursor-pointer bg-white object-cover'
+                      />
+                      {isActive && <div className='absolute inset-0 border-2 border-orange'></div>}
+                    </div>
+                  )
+                })}
+                <button onClick={next} className='absolute right-0 top-1/2 z-10 h-9 w-5 -translate-y-1/2 bg-black/20'>
+                  <svg
+                    xmlns='http://www.w3.org/2000/svg'
+                    fill='none'
+                    viewBox='0 0 24 24'
+                    strokeWidth={1.5}
+                    stroke='currentColor'
+                    className='h-6 w-6 text-white'
+                  >
+                    <path strokeLinecap='round' strokeLinejoin='round' d='M8.25 4.5l7.5 7.5-7.5 7.5' />
+                  </svg>
+                </button>
               </div>
             </div>
             <div className='col-span-7'>
