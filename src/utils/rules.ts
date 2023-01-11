@@ -4,58 +4,58 @@ import { AnyObject } from 'yup/lib/types'
 
 type Rules = { [key in 'email' | 'password' | 'confirm_password']?: RegisterOptions }
 
-export const getRules = (getValues?: UseFormGetValues<any>): Rules => ({
-  email: {
-    required: {
-      value: true,
-      message: 'Email là bắt buộc'
-    },
-    pattern: {
-      value: /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/,
-      message: 'Email không đúng định dạng'
-    },
-    minLength: {
-      value: 5,
-      message: 'Độ dài từ 5-160 kí tự'
-    },
-    maxLength: {
-      value: 160,
-      message: 'Độ dài từ 5-160 kí tự'
-    }
-  },
-  password: {
-    required: {
-      value: true,
-      message: 'Password là bắt buộc'
-    },
-    minLength: {
-      value: 6,
-      message: 'Độ dài từ 5-160 kí tự'
-    },
-    maxLength: {
-      value: 160,
-      message: 'Độ dài từ 5-160 kí tự'
-    }
-  },
-  confirm_password: {
-    required: {
-      value: true,
-      message: 'Nhập lại password là bắt buộc'
-    },
-    minLength: {
-      value: 6,
-      message: 'Độ dài từ 5-160 kí tự'
-    },
-    maxLength: {
-      value: 160,
-      message: 'Độ dài từ 5-160 kí tự'
-    },
-    validate:
-      typeof getValues === 'function'
-        ? (value) => value === getValues('password') || 'Nhập lại password không khớp'
-        : undefined
-  }
-})
+// export const getRules = (getValues?: UseFormGetValues<any>): Rules => ({
+//   email: {
+//     required: {
+//       value: true,
+//       message: 'Email là bắt buộc'
+//     },
+//     pattern: {
+//       value: /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/,
+//       message: 'Email không đúng định dạng'
+//     },
+//     minLength: {
+//       value: 5,
+//       message: 'Độ dài từ 5-160 kí tự'
+//     },
+//     maxLength: {
+//       value: 160,
+//       message: 'Độ dài từ 5-160 kí tự'
+//     }
+//   },
+//   password: {
+//     required: {
+//       value: true,
+//       message: 'Password là bắt buộc'
+//     },
+//     minLength: {
+//       value: 6,
+//       message: 'Độ dài từ 5-160 kí tự'
+//     },
+//     maxLength: {
+//       value: 160,
+//       message: 'Độ dài từ 5-160 kí tự'
+//     }
+//   },
+//   confirm_password: {
+//     required: {
+//       value: true,
+//       message: 'Nhập lại password là bắt buộc'
+//     },
+//     minLength: {
+//       value: 6,
+//       message: 'Độ dài từ 5-160 kí tự'
+//     },
+//     maxLength: {
+//       value: 160,
+//       message: 'Độ dài từ 5-160 kí tự'
+//     },
+//     validate:
+//       typeof getValues === 'function'
+//         ? (value) => value === getValues('password') || 'Nhập lại password không khớp'
+//         : undefined
+//   }
+// })
 
 function testPriceMinMax(this: yup.TestContext<AnyObject>) {
   const { price_min, price_max } = this.parent
@@ -93,7 +93,8 @@ export const schema = yup
       name: 'price-not-allow',
       message: 'Giá không phù hợp',
       test: testPriceMinMax
-    })
+    }),
+    name: yup.string().trim().required()
   })
   .required()
 
