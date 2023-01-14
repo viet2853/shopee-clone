@@ -70,6 +70,7 @@ export default function QuantityController({
         className=''
         classNameError='hidden'
         classNameInput='h-8 w-14 border-t border-b border-gray-300 p-1 text-center outline-none'
+        {...rest}
       />
       <button
         onClick={increase}

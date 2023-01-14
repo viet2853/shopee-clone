@@ -1,18 +1,21 @@
-import { useQuery } from '@tanstack/react-query'
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
 import { useEffect, useMemo, useRef, useState } from 'react'
 import { useParams } from 'react-router-dom'
 import DOMPurify from 'dompurify'
 
 import productApi from 'src/api/product.api'
-import InputNumber from 'src/components/InputNumber'
 import ProductRating from 'src/components/ProductRating'
 import { formatCurrency, formatNumberToSocialStyle, getIdFromNameId, rateSale } from 'src/utils/utils'
 import { Product as ProductType, ProductListConfig } from 'src/types/product.type'
 import Product from '../ProductList/components/Product'
 import QuantityController from 'src/components/QuantityController'
+import purchaseApi from 'src/api/purchase.api'
+import { purchasesStatus } from 'src/constants/purchase'
+import { toast } from 'react-toastify'
 
 export default function ProductDetail() {
   const { nameId } = useParams()
+  const queryClient = useQueryClient()
   const [buyCount, setBuyCount] = useState(1)
   const id = getIdFromNameId(nameId as string)
   const { data: productDetailData } = useQuery({
@@ -20,6 +23,7 @@ export default function ProductDetail() {
     queryFn: () => productApi.getProductDetail(id as string)
   })
   const product = productDetailData?.data.data
+
   const queryConfig: ProductListConfig = { limit: '10', page: '1', category: product?.category._id }
   const { data: ProductsData } = useQuery({
     queryKey: ['products', queryConfig],
@@ -29,6 +33,8 @@ export default function ProductDetail() {
     staleTime: 3 * 60 * 1000,
     enabled: Boolean(product)
   })
+
+  const addToCartMutation = useMutation(purchaseApi.addToCart)
 
   const [currentIndexImages, setCurrentIndexImages] = useState([0, 5])
   const [activeImage, setActiveImage] = useState('')
@@ -82,6 +88,23 @@ export default function ProductDetail() {
   const handleBuyCount = (value: number) => {
     setBuyCount(value)
   }
+
+  const addToCart = () => {
+    addToCartMutation.mutate(
+      { buy_count: buyCount, product_id: product?._id as string },
+      {
+        onSuccess: (data) => {
+          queryClient.invalidateQueries({
+            queryKey: ['purchases', { status: purchasesStatus.inCart }]
+          })
+          toast.success(data.data.message, {
+            autoClose: 1500
+          })
+        }
+      }
+    )
+  }
+
   if (!product) return null
   return (
     <div className='bg-gray-200 py-6'>
@@ -172,11 +195,15 @@ export default function ProductDetail() {
                   onIncrease={handleBuyCount}
                   onType={handleBuyCount}
                   value={buyCount}
+                  max={product.quantity}
                 />
                 <div className='ml-6 text-sm text-gray-500'>{product.quantity} sản phẩm có sẵn</div>
               </div>
               <div className='mt-8 flex items-center'>
-                <button className='flex h-12 items-center justify-center rounded-sm border border-orange bg-orange/10 px-5 capitalize shadow-sm hover:bg-orange/5'>
+                <button
+                  onClick={addToCart}
+                  className='flex h-12 items-center justify-center rounded-sm border border-orange bg-orange/10 px-5 capitalize shadow-sm hover:bg-orange/5'
+                >
                   <svg
                     enableBackground='new 0 0 15 15'
                     viewBox='0 0 15 15'

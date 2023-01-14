@@ -1,10 +1,9 @@
 import { omit } from 'lodash'
-import React from 'react'
 import { createSearchParams, Link, useNavigate } from 'react-router-dom'
 import path from 'src/constants/path'
 import { sortBy, order as orderContant } from 'src/constants/product'
+import { QueryConfig } from 'src/hooks/useQueryConfig'
 import { ProductListConfig } from 'src/types/product.type'
-import { QueryConfig } from '../../ProductList'
 interface Props {
   queryConfig: QueryConfig
   pageSize: number
