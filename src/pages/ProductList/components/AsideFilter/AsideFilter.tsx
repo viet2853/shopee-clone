@@ -149,7 +149,6 @@ export default function AsideFilter({ queryConfig, categories }: Props) {
                 )
               }}
             />
-
             <div className='mx-2 mt-2 shrink-0'>-</div>
             <Controller
               control={control}
