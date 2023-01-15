@@ -1,5 +1,5 @@
 import { yupResolver } from '@hookform/resolvers/yup'
-import { useMutation, useQuery } from '@tanstack/react-query'
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
 import { omit } from 'lodash'
 import { useContext } from 'react'
 import { useForm } from 'react-hook-form'
@@ -24,6 +24,7 @@ export default function Header() {
   const { setIsAuthenticated, isAuthenticated, setProfile, profile } = useContext(AppContext)
   const queryConfig = useQueryConfig()
   const navigate = useNavigate()
+  const queryClient = useQueryClient()
 
   const { register, handleSubmit } = useForm<FormData>({
     resolver: yupResolver(nameSchema),
@@ -35,22 +36,21 @@ export default function Header() {
   const logouMutation = useMutation({
     mutationFn: () => authApi.logout(),
     onSuccess: () => {
+      setProfile(null)
       setIsAuthenticated(false)
+      queryClient.removeQueries({ queryKey: ['purchases', { status: purchasesStatus.inCart }] })
     }
   })
 
   const { data: purchasesInCartData } = useQuery({
     queryKey: ['purchases', { status: purchasesStatus.inCart }],
-    queryFn: () =>
-      purchaseApi.getPurchases({
-        status: purchasesStatus.inCart
-      })
+    queryFn: () => purchaseApi.getPurchases({ status: purchasesStatus.inCart }),
+    enabled: isAuthenticated
   })
   const purchasesInCart = purchasesInCartData?.data.data
 
   const handleLogout = () => {
     logouMutation.mutate()
-    setProfile(null)
   }
 
   const onSubmitSearch = handleSubmit(({ name }) => {
