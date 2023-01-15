@@ -1,7 +1,7 @@
 import axios, { AxiosError } from 'axios'
 import HttpStatusCode from 'src/constants/httpStatusCode.enum'
 
-export function isAxiosError(error: unknown): error is AxiosError<T> {
+export function isAxiosError<T>(error: unknown): error is AxiosError<T> {
   return axios.isAxiosError(error)
 }
 

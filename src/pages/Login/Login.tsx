@@ -40,12 +40,12 @@ export default function Login() {
         navigate('/')
       },
       onError: (error) => {
-        if (isAxiosUnprocessableEntityError<ErrorResponse<Omit<Schema, 'confirm_password'>>>(error)) {
+        if (isAxiosUnprocessableEntityError<ErrorResponse<FormData>>(error)) {
           const formError = error.response?.data.data
           if (formError) {
             Object.keys(formError).forEach((key) => {
               setError(key as keyof FormData, {
-                message: formError[key as keyof Omit<Schema, 'confirm_password'>],
+                message: formError[key as keyof FormData],
                 type: 'Server'
               })
             })
