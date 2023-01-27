@@ -18,7 +18,7 @@ export default function Header() {
   const { onSubmitSearch, register } = useSearchproducts()
 
   const { data: purchasesInCartData } = useQuery({
-    queryKey: ['purchasesInCart', { status: purchasesStatus.inCart }],
+    queryKey: ['purchases', { status: purchasesStatus.inCart }],
     queryFn: () => purchaseApi.getPurchases({ status: purchasesStatus.inCart }),
     enabled: isAuthenticated
   })
