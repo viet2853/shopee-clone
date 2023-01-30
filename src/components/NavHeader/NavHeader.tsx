@@ -5,6 +5,7 @@ import authApi from 'src/api/auth.api'
 import path from 'src/constants/path'
 import { purchasesStatus } from 'src/constants/purchase'
 import { AppContext } from 'src/context/App.context'
+import { getAvatarUrl } from 'src/utils/utils'
 import Popover from '../Popover'
 
 export default function NavHeader() {
@@ -66,10 +67,16 @@ export default function NavHeader() {
           className='ml-6 flex cursor-pointer items-center py-1 hover:text-white/70'
           renderPopover={
             <div className='relative rounded-sm border border-gray-200 bg-white shadow-md'>
-              <Link to='' className='block w-full bg-white py-3 px-4 text-left hover:bg-slate-100 hover:text-cyan-500'>
+              <Link
+                to={path.profile}
+                className='block w-full bg-white py-3 px-4 text-left hover:bg-slate-100 hover:text-cyan-500'
+              >
                 Tài khoản của tôi
               </Link>
-              <Link to='' className='block w-full bg-white py-3 px-4 text-left hover:bg-slate-100 hover:text-cyan-500'>
+              <Link
+                to={path.historyPurChase}
+                className='block w-full bg-white py-3 px-4 text-left hover:bg-slate-100 hover:text-cyan-500'
+              >
                 Đơn mua
               </Link>
               <button
@@ -82,11 +89,7 @@ export default function NavHeader() {
           }
         >
           <div className='mr-2 h-6 w-6 flex-shrink-0'>
-            <img
-              // src={getAvatarUrl(profile?.avatar)}
-              alt='avatar'
-              className='h-full w-full rounded-full object-cover'
-            />
+            <img src={getAvatarUrl(profile?.avatar)} alt='avatar' className='h-full w-full rounded-full object-cover' />
           </div>
           <div>{profile?.email}</div>
         </Popover>
