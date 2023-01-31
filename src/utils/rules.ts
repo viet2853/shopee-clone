@@ -55,7 +55,7 @@ export const userSchema = yup.object({
     .required('Nhập lại mật khẩu là bắt buộc')
     .min(6, 'Độ dài từ 6-160 kí tự')
     .max(160, 'Độ dài từ 6-160 kí tự')
-    .oneOf([yup.ref('password')], 'Mật khẩu nhập lại không khớp')
+    .oneOf([yup.ref('new_password')], 'Mật khẩu nhập lại không khớp')
 })
 
 export type UserSchema = yup.InferType<typeof userSchema>

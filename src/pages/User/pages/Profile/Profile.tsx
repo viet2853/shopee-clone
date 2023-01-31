@@ -13,6 +13,7 @@ import DateSelect from '../../components/DateSelect'
 import { saveProfileToLS } from 'src/utils/auth'
 import { getAvatarUrl, isAxiosUnprocessableEntityError } from 'src/utils/utils'
 import { ErrorResponse } from 'src/types/utils.type'
+import InputFile from 'src/components/InputFile'
 
 type FormData = Pick<UserSchema, 'name' | 'address' | 'phone' | 'date_of_birth' | 'avatar'>
 type FormDataError = Omit<FormData, 'date_of_birth'> & {
@@ -21,7 +22,6 @@ type FormDataError = Omit<FormData, 'date_of_birth'> & {
 const profileSchema = userSchema.pick(['name', 'address', 'date_of_birth', 'phone', 'avatar'])
 
 export default function Profile() {
-  const fileInputRef = useRef<HTMLInputElement>(null)
   const [file, setFile] = useState<File>()
   const { setProfile } = useContext(AppContext)
   const previewImage = useMemo(() => {
@@ -102,19 +102,6 @@ export default function Profile() {
       }
     }
   })
-
-  const onFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const fileUpload = event.target.files?.[0]
-    if (fileUpload && (fileUpload.size >= 1048576 || !fileUpload.type.includes('image'))) {
-      toast.error(`Dụng lượng file tối đa 1 MB. Định dạng:.JPEG, .PNG`)
-    } else {
-      setFile(fileUpload)
-    }
-  }
-
-  const handleUpload = () => {
-    fileInputRef.current?.click()
-  }
 
   return (
     <div className='rounded-sm bg-white px-2 pb-10 shadow md:px-7 md:pb-20'>
@@ -206,26 +193,15 @@ export default function Profile() {
             <div className='my-5 h-24 w-24'>
               <img
                 src={previewImage || getAvatarUrl(profile?.avatar)}
-                alt=''
+                alt={profile?.avatar}
                 className='h-full w-full rounded-full object-cover'
               />
             </div>
-            <input
-              className='hidden'
-              name='avatar'
-              ref={fileInputRef}
-              type='file'
-              accept='.jpg,.jpeg,.png'
-              onChange={onFileChange}
-              // eslint-disable-next-line @typescript-eslint/no-explicit-any
-              onClick={(event) => ((event.target as any).value = null)}
+            <InputFile
+              onChange={(file?: File) => {
+                setFile(file)
+              }}
             />
-            <button
-              onClick={handleUpload}
-              className='flex h-10 items-center justify-end rounded-sm border bg-white px-6 text-sm text-gray-600 shadow-sm'
-            >
-              Chọn ảnh
-            </button>
             <div className='mt-3 text-gray-400'>
               <div>Dụng lượng file tối đa 1 MB</div>
               <div>Định dạng:.JPEG, .PNG</div>
