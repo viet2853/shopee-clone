@@ -7,6 +7,7 @@ import MainLayout from './layouts/MainLayout'
 import RegisterLayout from './layouts/RegisterLayout'
 import Cart from './pages/Cart'
 import Login from './pages/Login'
+import NotFound from './pages/NotFound/NotFound'
 import ProductDetail from './pages/ProductDetail'
 import ProductList from './pages/ProductList'
 import Register from './pages/Register'
@@ -100,6 +101,10 @@ export default function useRouteElements() {
           )
         }
       ]
+    },
+    {
+      path: '*',
+      element: <NotFound />
     }
   ])
   return routeElement

@@ -14,7 +14,6 @@ import useQueryConfig from 'src/hooks/useQueryConfig'
 
 export default function ProductList() {
   const queryConfig = useQueryConfig()
-
   const { data: ProductsData } = useQuery({
     queryKey: ['products', queryConfig],
     queryFn: () => {
