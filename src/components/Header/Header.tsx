@@ -1,4 +1,4 @@
-import { useQuery } from '@tanstack/react-query'
+import { useQuery, type QueryKey } from '@tanstack/react-query'
 import { useContext } from 'react'
 
 import purchaseApi from 'src/api/purchase.api'
@@ -10,18 +10,19 @@ import Popover from '../Popover'
 import noproduct from 'src/assets/images/noproduct.png'
 import NavHeader from '../NavHeader'
 import { Link } from 'react-router-dom'
-import useSearchproducts from 'src/hooks/useSearchProducts'
+import useSearchProducts from 'src/hooks/useSearchProducts'
 
 const MAX_PURCHASES = 5
 export default function Header() {
   const { isAuthenticated } = useContext(AppContext)
-  const { onSubmitSearch, register } = useSearchproducts()
+  const { onSubmitSearch, register } = useSearchProducts()
 
   const { data: purchasesInCartData } = useQuery({
-    queryKey: ['purchases', { status: purchasesStatus.inCart }],
+    queryKey: ['purchases', { status: purchasesStatus.inCart }] as QueryKey,
     queryFn: () => purchaseApi.getPurchases({ status: purchasesStatus.inCart }),
     enabled: isAuthenticated
   })
+
   const purchasesInCart = purchasesInCartData?.data.data
 
   return (

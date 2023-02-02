@@ -9,7 +9,7 @@ import useQueryConfig from './useQueryConfig'
 type FormData = Pick<Schema, 'name'>
 const nameSchema = schema.pick(['name'])
 
-export default function useSearchproducts() {
+export default function useSearchProducts() {
   const { register, handleSubmit } = useForm<FormData>({
     resolver: yupResolver(nameSchema),
     defaultValues: {
