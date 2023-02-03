@@ -11,7 +11,7 @@ import noproduct from 'src/assets/images/noproduct.png'
 import React, { useEffect, useMemo, useState } from 'react'
 import { ExtendedPurchase, Purchase } from 'src/types/purchase.type'
 import produce from 'immer'
-import { keyBy } from 'lodash'
+import keyBy from 'lodash/keyBy'
 import { toast } from 'react-toastify'
 
 export default function Cart() {

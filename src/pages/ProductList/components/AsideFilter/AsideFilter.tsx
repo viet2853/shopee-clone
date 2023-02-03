@@ -9,7 +9,7 @@ import path from 'src/constants/path'
 import { Category } from 'src/types/category.type'
 import { yupResolver } from '@hookform/resolvers/yup'
 import RatingStar from '../RatingStar'
-import { omit } from 'lodash'
+import omit from 'lodash/omit'
 import { QueryConfig } from 'src/hooks/useQueryConfig'
 
 interface Props {

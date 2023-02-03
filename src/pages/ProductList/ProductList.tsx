@@ -1,10 +1,7 @@
 import { useQuery } from '@tanstack/react-query'
-import React, { useState } from 'react'
-import { omitBy, isUndefined } from 'lodash'
 
 import productApi from 'src/api/product.api'
 import Pagination from 'src/components/Pagination'
-import useQueryParams from 'src/hooks/useQueryParams'
 import { ProductListConfig } from 'src/types/product.type'
 import AsideFilter from './components/AsideFilter'
 import Product from './components/Product'
