@@ -10,7 +10,7 @@ import Popover from '../Popover'
 import noproduct from 'src/assets/images/noproduct.png'
 import NavHeader from '../NavHeader'
 import { Link } from 'react-router-dom'
-import useSearchProducts from 'src/hooks/useSearchProducts'
+import useSearchProducts from 'src/hooks/useSearchproducts'
 
 const MAX_PURCHASES = 7
 export default function Header() {
