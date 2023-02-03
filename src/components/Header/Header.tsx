@@ -12,7 +12,7 @@ import NavHeader from '../NavHeader'
 import { Link } from 'react-router-dom'
 import useSearchProducts from 'src/hooks/useSearchProducts'
 
-const MAX_PURCHASES = 5
+const MAX_PURCHASES = 7
 export default function Header() {
   const { isAuthenticated } = useContext(AppContext)
   const { onSubmitSearch, register } = useSearchProducts()
