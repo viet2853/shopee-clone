@@ -7,6 +7,7 @@ import useQueryParams from 'src/hooks/useQueryParams'
 import { formatCurrency, generateNameId } from 'src/utils/utils'
 import { PurchaseListStatus } from 'src/types/purchase.type'
 import { useTranslation } from 'react-i18next'
+import { Helmet } from 'react-helmet-async'
 
 export default function HistoryPurchase() {
   const { t } = useTranslation('user')
@@ -21,14 +22,18 @@ export default function HistoryPurchase() {
   const queryParams: { status?: string } = useQueryParams()
   const status: number = Number(queryParams.status) || purchasesStatus.all
 
-  const { data: purchasesHistory } = useQuery({
+  const { data: purchasesHistoryData } = useQuery({
     queryKey: ['purchases', { status }],
     queryFn: () => purchaseApi.getPurchases({ status: status as PurchaseListStatus })
   })
 
-  const purchasesInCart = purchasesHistory?.data.data
+  const purchasesHistory = purchasesHistoryData?.data.data
   return (
     <div>
+      <Helmet>
+        <title>Purchase</title>
+        <meta name='description' content='Purchase' />
+      </Helmet>
       <div className='overflow-x-auto'>
         <div className='min-w-[700px]'>
           <div className='sticky top-0 flex rounded-t-sm shadow-sm'>
@@ -48,7 +53,7 @@ export default function HistoryPurchase() {
             ))}
           </div>
           <div>
-            {purchasesInCart?.map((purchase) => (
+            {purchasesHistory?.map((purchase) => (
               <div key={purchase._id} className='mt-4 rounded-sm border-black/10 bg-white p-6 text-gray-800 shadow-sm'>
                 <Link
                   to={`${path.home}${generateNameId({ name: purchase.product.name, id: purchase.product._id })}`}

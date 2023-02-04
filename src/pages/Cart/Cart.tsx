@@ -14,6 +14,7 @@ import produce from 'immer'
 import keyBy from 'lodash/keyBy'
 import { toast } from 'react-toastify'
 import { useTranslation } from 'react-i18next'
+import { Helmet } from 'react-helmet-async'
 
 export default function Cart() {
   const { t } = useTranslation(['cart', 'product'])
@@ -145,6 +146,10 @@ export default function Cart() {
 
   return (
     <div className='bg-neutral-100 py-16'>
+      <Helmet>
+        <title>Cart | VietStore</title>
+        <meta name='description' content='Cart' />
+      </Helmet>
       <div className='container'>
         {extendedPurchases && extendedPurchases.length > 0 ? (
           <>
