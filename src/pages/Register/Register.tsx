@@ -12,10 +12,12 @@ import { isAxiosUnprocessableEntityError } from 'src/utils/utils'
 import { ErrorResponse } from 'src/types/utils.type'
 import { AppContext } from 'src/context/App.context'
 import Button from 'src/components/Button'
+import { useTranslation } from 'react-i18next'
 
 type FormData = Pick<Schema, 'email' | 'password' | 'confirm_password'>
 const registerSchema = schema.pick(['email', 'password', 'confirm_password'])
 export default function Register() {
+  const { t } = useTranslation('auth')
   const { setIsAuthenticated, setProfile } = useContext(AppContext)
   const navigate = useNavigate()
 
@@ -62,7 +64,7 @@ export default function Register() {
         <div className='grid grid-cols-1 py-12 lg:grid-cols-5 lg:py-32 lg:pr-10'>
           <div className='lg:col-span-2 lg:col-start-4'>
             <form className='rounded bg-white p-10 shadow-sm' onSubmit={onSubmit} noValidate>
-              <div className='text-2xl'>Đăng ký</div>
+              <div className='text-2xl'>{t('signin')}</div>
               <Input
                 className='mt-8'
                 name='email'
@@ -77,7 +79,7 @@ export default function Register() {
                 register={register}
                 type='password'
                 errorMessage={errors.password?.message}
-                placeholder='Passwprd'
+                placeholder='Password'
               />
               <Input
                 className='mt-2'
@@ -93,13 +95,13 @@ export default function Register() {
                   disabled={registerAccountMutation.isLoading}
                   className='flex w-full items-center justify-center bg-red-500 py-4 px-2 text-sm uppercase text-white hover:bg-red-600'
                 >
-                  Đăng ký
+                  {t('signin')}
                 </Button>
               </div>
               <div className='mt-8 flex items-center justify-center'>
-                <span className='text-gray-400'>Bạn đã có tài khoản?</span>
+                <span className='text-gray-400'>{t('have account')}?</span>
                 <Link className='ml-1 text-red-400' to='/login'>
-                  Đăng nhập
+                  {t('login')}
                 </Link>
               </div>
             </form>

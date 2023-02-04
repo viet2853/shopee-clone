@@ -1,0 +1,29 @@
+{
+  "aside filter": {
+    "all categories": "All categories",
+    "filter search": "Filter",
+    "price range": "Price range",
+    "from": "FROM",
+    "to": "TO",
+    "apply": "Apply",
+    "rating": "Rating",
+    "more": "More",
+    "remove all": "Remove all"
+  },
+  "header nav": {
+    "signin": "Signin",
+    "login": "Login",
+    "logout": "Logout",
+    "account": "Account",
+    "purchases": "Purchases"
+  },
+  "sort": {
+    "sort by": "Sort by",
+    "popular": "Popular",
+    "latest": "Latest",
+    "selling": "Selling",
+    "price": "Price",
+    "hight to low": "Hight to low",
+    "low to hight": "Low to hight"
+  }
+}

@@ -2,6 +2,7 @@ import { yupResolver } from '@hookform/resolvers/yup'
 import { useMutation } from '@tanstack/react-query'
 import omit from 'lodash/omit'
 import { useForm } from 'react-hook-form'
+import { useTranslation } from 'react-i18next'
 import { toast } from 'react-toastify'
 import userApi from 'src/api/user.api'
 
@@ -15,6 +16,7 @@ type FormData = Pick<UserSchema, 'password' | 'new_password' | 'confirm_password
 const changePasswordSchema = userSchema.pick(['password', 'confirm_password', 'new_password'])
 
 export default function ChangePassword() {
+  const { t } = useTranslation('user')
   const {
     register,
     handleSubmit,
@@ -56,17 +58,17 @@ export default function ChangePassword() {
   return (
     <div className='rounded-sm bg-white px-2 pb-10 shadow md:px-7 md:pb-20'>
       <div className='border-b border-b-gray-200 py-6'>
-        <h1 className='text-lg font-medium capitalize text-gray-900'>Đổi mật khẩu</h1>
-        <div className='mt-1 text-sm text-gray-700'>Quản lý thông tin hồ sơ để bảo mật tài khoản</div>
+        <h1 className='text-lg font-medium capitalize text-gray-900'>{t('profile.change password')}</h1>
+        <div className='mt-1 text-sm text-gray-700'>{t('profile.sub title')}</div>
       </div>
       <div className='mt-8 mr-auto max-w-2xl'>
         <form className='mt-6 flex-grow md:mt-0 md:pr-12' onSubmit={onSubmit}>
           <div className='mt-6 flex flex-col flex-wrap sm:flex-row'>
-            <div className='truncate pt-3 capitalize sm:w-[20%] sm:text-right'>Mật khẩu cũ</div>
+            <div className='truncate pt-3 capitalize sm:w-[20%] sm:text-right'>{t('password.old password')}</div>
             <div className='sm:w-[80%] sm:pl-5'>
               <Input
                 name='password'
-                placeholder='Mật khẩu cũ'
+                placeholder={`${t('password.old password')}`}
                 type='password'
                 register={register}
                 errorMessage={errors.password?.message}
@@ -75,11 +77,11 @@ export default function ChangePassword() {
             </div>
           </div>
           <div className='mt-2 flex flex-col flex-wrap sm:flex-row'>
-            <div className='truncate pt-3 capitalize sm:w-[20%] sm:text-right'>Mật khẩu mới</div>
+            <div className='truncate pt-3 capitalize sm:w-[20%] sm:text-right'>{t('password.new password')}</div>
             <div className='sm:w-[80%] sm:pl-5'>
               <Input
                 name='new_password'
-                placeholder='Mật khẩu mới'
+                placeholder={`${t('password.new password')}`}
                 type='password'
                 register={register}
                 errorMessage={errors.new_password?.message}
@@ -88,11 +90,11 @@ export default function ChangePassword() {
             </div>
           </div>
           <div className='mt-2 flex flex-col flex-wrap sm:flex-row'>
-            <div className='truncate pt-3 capitalize sm:w-[20%] sm:text-right'>Nhập lại mật khẩu</div>
+            <div className='truncate pt-3 capitalize sm:w-[20%] sm:text-right'>{t('password.confirm password')}</div>
             <div className='sm:w-[80%] sm:pl-5'>
               <Input
                 name='confirm_password'
-                placeholder='Nhập lại mật khẩu'
+                placeholder={`${t('password.confirm password')}`}
                 type='password'
                 register={register}
                 errorMessage={errors.confirm_password?.message}
@@ -107,7 +109,7 @@ export default function ChangePassword() {
                 className='flex h-9 items-center rounded-sm bg-orange px-5 text-center text-sm text-white hover:bg-orange/80'
                 type='submit'
               >
-                Lưu
+                {t('profile.save')}
               </Button>
             </div>
           </div>

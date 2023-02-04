@@ -1,0 +1,31 @@
+{
+  "profile": {
+    "my profile": "Hồ sơ của tôi",
+    "sub title": "Quản lý thông tin hồ sơ để bảo mật tài khoản",
+    "change profile": "Sửa tài khoản",
+    "my account": "Tài Khoản Của Tôi",
+    "change password": "Đổi Mật Khẩu",
+    "purchase": "Đơn Mua",
+    "name": "Tên",
+    "phone": "Số Điện Thoại",
+    "address": "Địa Chỉ",
+    "birth": "Ngày Sinh",
+    "choose avatar": "Chọn ảnh",
+    "save": "Lưu",
+    "rule avatar 1": "Dụng lượng file tối đa 1 MB",
+    "rule avatar 2": "Định dạng:.JPEG, .PNG"
+  },
+  "password": {
+    "old password": "Mật Khẩu Cũ",
+    "new password": "Mật Khẩu Mới",
+    "confirm password": "Nhập Lại Mật Khẩu"
+  },
+  "purchase": {
+    "all": "Tất cả",
+    "wait for confirmation": "Chờ xác nhận",
+    "wait for getting": "Chờ lấy hàng",
+    "in progress": "Đang giao ",
+    "delivered": "Đã giao",
+    "cancelled": "Huỷ"
+  }
+}

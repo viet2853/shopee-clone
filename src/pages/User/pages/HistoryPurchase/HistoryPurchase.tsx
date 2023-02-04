@@ -6,16 +6,18 @@ import { purchasesStatus } from 'src/constants/purchase'
 import useQueryParams from 'src/hooks/useQueryParams'
 import { formatCurrency, generateNameId } from 'src/utils/utils'
 import { PurchaseListStatus } from 'src/types/purchase.type'
+import { useTranslation } from 'react-i18next'
 
-const purchaseTabs = [
-  { status: purchasesStatus.all, name: 'Tất cả' },
-  { status: purchasesStatus.waitForConfirmation, name: 'Chờ xác nhận' },
-  { status: purchasesStatus.waitForGetting, name: 'Chờ lấy hàng' },
-  { status: purchasesStatus.inProgress, name: 'Đang giao' },
-  { status: purchasesStatus.delivered, name: 'Đã giao' },
-  { status: purchasesStatus.cancelled, name: 'Đã hủy' }
-]
 export default function HistoryPurchase() {
+  const { t } = useTranslation('user')
+  const purchaseTabs = [
+    { status: purchasesStatus.all, name: t('purchase.all') },
+    { status: purchasesStatus.waitForConfirmation, name: t('purchase.wait for confirmation') },
+    { status: purchasesStatus.waitForGetting, name: t('purchase.wait for getting') },
+    { status: purchasesStatus.inProgress, name: t('purchase.in progress') },
+    { status: purchasesStatus.delivered, name: t('purchase.delivered') },
+    { status: purchasesStatus.cancelled, name: t('purchase.cancelled') }
+  ]
   const queryParams: { status?: string } = useQueryParams()
   const status: number = Number(queryParams.status) || purchasesStatus.all
 

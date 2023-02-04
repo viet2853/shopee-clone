@@ -1,4 +1,5 @@
 import React, { useRef } from 'react'
+import { useTranslation } from 'react-i18next'
 import { toast } from 'react-toastify'
 
 interface Props {
@@ -6,6 +7,7 @@ interface Props {
 }
 
 export default function InputFile({ onChange }: Props) {
+  const { t } = useTranslation('user')
   const fileInputRef = useRef<HTMLInputElement>(null)
 
   const onFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -36,7 +38,7 @@ export default function InputFile({ onChange }: Props) {
         onClick={handleUpload}
         className='flex h-10 items-center justify-end rounded-sm border bg-white px-6 text-sm text-gray-600 shadow-sm'
       >
-        Chọn ảnh
+        {t('profile.choose avatar')}
       </button>
     </>
   )

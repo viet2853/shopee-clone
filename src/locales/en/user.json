@@ -1,0 +1,31 @@
+{
+  "profile": {
+    "my profile": "my profile",
+    "sub title": "Manage profile information for account security",
+    "change profile": "Change profile",
+    "my account": "My Account",
+    "change password": "Change Password",
+    "purchase": "Purchase",
+    "name": "Name",
+    "phone": "Phone",
+    "address": "Address",
+    "birth": "Birth",
+    "choose avatar": "Choose Avatar",
+    "save": "Save",
+    "rule avatar 1": "Maximum file size 1 MB",
+    "rule avatar 2": "Format: .JPEG, .PNG"
+  },
+  "password": {
+    "old password": "Old Password",
+    "new password": "New Password",
+    "confirm password": "Confirm Password"
+  },
+  "purchase": {
+    "all": "All",
+    "wait for confirmation": "Wait for confirmation",
+    "wait for getting": "Wait for getting",
+    "in progress": "In progress",
+    "delivered": "Delivered",
+    "cancelled": "Cancelled"
+  }
+}

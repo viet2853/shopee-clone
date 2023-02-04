@@ -2,6 +2,7 @@ import { yupResolver } from '@hookform/resolvers/yup'
 import { useMutation } from '@tanstack/react-query'
 import React, { useContext } from 'react'
 import { useForm } from 'react-hook-form'
+import { useTranslation } from 'react-i18next'
 import { Link, useNavigate } from 'react-router-dom'
 import authApi from 'src/api/auth.api'
 import Button from 'src/components/Button'
@@ -15,6 +16,7 @@ type FormData = Pick<Schema, 'email' | 'password'>
 const loginSchema = schema.pick(['email', 'password'])
 
 export default function Login() {
+  const { t } = useTranslation('auth')
   const { setIsAuthenticated, setProfile } = useContext(AppContext)
 
   const navigate = useNavigate()
@@ -61,7 +63,7 @@ export default function Login() {
         <div className='grid grid-cols-1 py-12 lg:grid-cols-5 lg:py-32 lg:pr-10'>
           <div className='lg:col-span-2 lg:col-start-4'>
             <form className='rounded bg-white p-10 shadow-sm' onSubmit={onSubmit} noValidate>
-              <div className='text-2xl'>Đăng nhập</div>
+              <div className='text-2xl'>{t('login')}</div>
               <Input
                 className='mt-8'
                 name='email'
@@ -76,7 +78,7 @@ export default function Login() {
                 register={register}
                 type='password'
                 errorMessage={errors.password?.message}
-                placeholder='Passwprd'
+                placeholder='Password'
               />
               <div className='mt-2'>
                 <Button
@@ -84,13 +86,13 @@ export default function Login() {
                   disabled={loginAccountMutation.isLoading}
                   className='flex w-full items-center justify-center bg-red-500 py-4 px-2 text-sm uppercase text-white hover:bg-red-600'
                 >
-                  Đăng nhập
+                  {t('login')}
                 </Button>
               </div>
               <div className='mt-8 flex items-center justify-center'>
-                <span className='text-gray-400'>Bạn chưa có tài khoản?</span>
+                <span className='text-gray-400'>{t('no account')}?</span>
                 <Link className='ml-1 text-red-400' to='/register'>
-                  Đăng kí
+                  {t('signin')}
                 </Link>
               </div>
             </form>
