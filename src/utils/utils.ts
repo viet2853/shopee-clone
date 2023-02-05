@@ -1,11 +1,11 @@
-import { AxiosError } from 'axios'
+import axios, { AxiosError } from 'axios'
 import config from 'src/constants/config'
 import HttpStatusCode from 'src/constants/httpStatusCode.enum'
 import userImg from 'src/assets/images/user.jpg'
 import { ErrorResponse } from 'src/types/utils.type'
 
 export function isAxiosError<T>(error: unknown): error is AxiosError<T> {
-  return isAxiosError(error)
+  return axios.isAxiosError(error)
 }
 
 export function isAxiosUnprocessableEntityError<FormError>(error: unknown): error is AxiosError<FormError> {

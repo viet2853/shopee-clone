@@ -101,6 +101,7 @@ class Http {
           this.accessToken = ''
           this.refreshToken = ''
           toast.error(error.response?.data.data?.message || error.response?.data.message)
+          return
         }
         return Promise.reject(error)
       }
