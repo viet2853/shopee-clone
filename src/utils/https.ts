@@ -17,7 +17,7 @@ import config from 'src/constants/config'
 import { ErrorResponse, SuccessResponse } from 'src/types/utils.type'
 import { isAxiosUnauthorizedError, isExpireAccessTokenError } from './utils'
 
-class Http {
+export class Http {
   instance: AxiosInstance
   private accessToken: string
   private refreshToken: string

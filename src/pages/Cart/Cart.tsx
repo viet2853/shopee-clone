@@ -95,6 +95,7 @@ export default function Cart() {
       })
     )
   }
+
   const handleCheckAll = () => {
     setExtendedPurchases((prev) =>
       prev.map((purchase) => ({
@@ -192,7 +193,7 @@ export default function Cart() {
                                 type='checkbox'
                                 checked={purchase.checked}
                                 onChange={handleCheck(index)}
-                                className='h-5 w-5 accent-orange'
+                                className='h-5 w-5 cursor-pointer accent-orange'
                               />
                             </div>
                             <div className='flex-grow'>
