@@ -62,7 +62,7 @@ export default function Register() {
   return (
     <div className='bg-orange'>
       <Helmet>
-        <title>Register | Vietstore</title>
+        <title>Register | VietStore</title>
         <meta name='description' content='Register | Vietstore' />
       </Helmet>
       <div className='container'>
