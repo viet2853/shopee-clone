@@ -1,7 +1,7 @@
 import { describe, test, expect } from 'vitest'
 import { screen, waitFor } from '@testing-library/react'
 import matchers from '@testing-library/jest-dom/matchers'
-import { renderWithRoute } from './utils/testUtils'
+import { logScreen, renderWithRoute } from './utils/testUtils'
 
 expect.extend(matchers)
 
@@ -26,7 +26,6 @@ describe('App', () => {
     await user.click(screen.getByText(/Đăng nhập/i))
     await waitFor(() => {
       expect(screen.getByText(/Bạn chưa có tài khoản/i)).toBeInTheDocument()
-
       expect(document.querySelector('title')?.textContent).toBe('Login | VietStore')
     })
 
@@ -44,7 +43,7 @@ describe('App', () => {
 
     await waitFor(() => {
       expect(screen.getByText(/Something is missing/i)).toBeInTheDocument()
-      screen.debug(document.body.parentElement as HTMLElement, 99999999)
     })
+    // await logScreen()
   })
 })

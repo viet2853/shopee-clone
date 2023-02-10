@@ -87,6 +87,7 @@ export default function Login() {
               />
               <div className='mt-2'>
                 <Button
+                  type='submit'
                   isLoading={loginAccountMutation.isLoading}
                   disabled={loginAccountMutation.isLoading}
                   className='flex w-full items-center justify-center bg-red-500 py-4 px-2 text-sm uppercase text-white hover:bg-red-600'
