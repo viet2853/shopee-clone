@@ -1,37 +1,50 @@
 import { describe, test, expect } from 'vitest'
-import { render, screen, waitFor } from '@testing-library/react'
-import userEvent from '@testing-library/user-event'
+import { screen, waitFor } from '@testing-library/react'
 import matchers from '@testing-library/jest-dom/matchers'
-import App from './App'
-import { BrowserRouter } from 'react-router-dom'
+import { renderWithRoute } from './utils/testUtils'
 
 expect.extend(matchers)
 
 describe('App', () => {
   test('App render & navigate', async () => {
-    render(<App />, { wrapper: BrowserRouter })
-    const user = userEvent.setup()
-    screen.debug(document.body.parentElement as HTMLElement, 99999999)
+    const { user } = renderWithRoute()
 
-    // //Verify render home page
-    // await waitFor(() => {
-    //   expect(document.querySelector('title')?.textContent).toBe('Home | VietStore')
-    // })
+    /**
+     * waitFor sẽ run callback 1 vài lần
+     * cho đến khi hết timeout hoặc expect pass
+     * Số lần run phụ thuộc vào timeout và interval
+     * Mặc định: timeout = 1000ms và interval = 50ms
+     *
+     */
 
-    // //Verify navigate login page
-    // await user.click(screen.getByText(/Đăng nhập/i))
-    // await waitFor(() => {
-    //   expect(screen.getByText(/Bạn chưa có tài khoản/i)).toBeInTheDocument()
+    //Verify render home page
+    await waitFor(() => {
+      expect(document.querySelector('title')?.textContent).toBe('Home | VietStore')
+    })
 
-    //   expect(document.querySelector('title')?.textContent).toBe('Login | VietStore')
-    // })
+    //Verify navigate login page
+    await user.click(screen.getByText(/Đăng nhập/i))
+    await waitFor(() => {
+      expect(screen.getByText(/Bạn chưa có tài khoản/i)).toBeInTheDocument()
 
-    // //Verify navigate register page
-    // await user.click(screen.getByText(/Đăng kí/i))
-    // await waitFor(() => {
-    //   expect(screen.getByText(/Bạn đã có tài khoản/i)).toBeInTheDocument()
+      expect(document.querySelector('title')?.textContent).toBe('Login | VietStore')
+    })
 
-    //   expect(document.querySelector('title')?.textContent).toBe('Register | VietStore')
-    // })
+    //Verify navigate register page
+    await user.click(screen.getByText(/Đăng kí/i))
+    await waitFor(() => {
+      expect(screen.getByText(/Bạn đã có tài khoản/i)).toBeInTheDocument()
+      expect(document.querySelector('title')?.textContent).toBe('Register | VietStore')
+    })
+  })
+
+  test('NotFound page', async () => {
+    const route = '/some/bad/route'
+    renderWithRoute({ route })
+
+    await waitFor(() => {
+      expect(screen.getByText(/Something is missing/i)).toBeInTheDocument()
+      screen.debug(document.body.parentElement as HTMLElement, 99999999)
+    })
   })
 })

@@ -5,10 +5,9 @@ import { useContext, useEffect } from 'react'
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools'
 
 import { LocalStorageEventTarget } from './utils/auth'
-import { AppContext, AppProvider } from './context/App.context'
+import { AppContext } from './context/App.context'
 import ErrorBoundary from './components/ErrorBoundary'
 import { HelmetProvider } from 'react-helmet-async'
-import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 
 function App() {
   const routeElements = useRouteElements()
@@ -21,27 +20,14 @@ function App() {
     }
   }, [reset])
 
-  const queryClient = new QueryClient({
-    defaultOptions: {
-      queries: {
-        refetchOnWindowFocus: false,
-        retry: false
-      }
-    }
-  })
-
   return (
-    <QueryClientProvider client={queryClient}>
-      <HelmetProvider>
-        <ErrorBoundary>
-          <AppProvider>
-            {routeElements}
-            <ToastContainer />
-          </AppProvider>
-        </ErrorBoundary>
-        <ReactQueryDevtools initialIsOpen={false} />
-      </HelmetProvider>
-    </QueryClientProvider>
+    <HelmetProvider>
+      <ErrorBoundary>
+        {routeElements}
+        <ToastContainer />
+      </ErrorBoundary>
+      <ReactQueryDevtools initialIsOpen={false} />
+    </HelmetProvider>
   )
 }
 

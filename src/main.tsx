@@ -7,22 +7,22 @@ import App from './App'
 import './index.css'
 import { AppProvider } from './context/App.context'
 
-// const queryClient = new QueryClient({
-//   defaultOptions: {
-//     queries: {
-//       refetchOnWindowFocus: false,
-//       retry: false
-//     }
-//   }
-// })
+const queryClient = new QueryClient({
+  defaultOptions: {
+    queries: {
+      refetchOnWindowFocus: false,
+      retry: false
+    }
+  }
+})
 ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
   <React.StrictMode>
     <BrowserRouter>
-      {/* <QueryClientProvider client={queryClient}> */}
-      {/* <AppProvider> */}
-      <App />
-      {/* </AppProvider> */}
-      {/* </QueryClientProvider> */}
+      <QueryClientProvider client={queryClient}>
+        <AppProvider>
+          <App />
+        </AppProvider>
+      </QueryClientProvider>
     </BrowserRouter>
   </React.StrictMode>
 )
