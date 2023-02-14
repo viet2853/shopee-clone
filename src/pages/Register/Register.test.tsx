@@ -7,15 +7,24 @@ import matchers from '@testing-library/jest-dom/matchers'
 expect.extend(matchers)
 
 describe('Register page', () => {
+  let inputEmail: Element
+  let inputPassword: Element
+  let inputConfirmPassword: Element
+  let btnSubmit: Element
+
   beforeAll(async () => {
     renderWithRoute({ route: path.register })
     await waitFor(() => {
       expect(screen.queryByPlaceholderText('Email')).toBeInTheDocument()
     })
+
+    inputEmail = document.querySelector('form input[type="email"]') as Element
+    inputPassword = document.querySelector('form input[name="password"]') as Element
+    inputConfirmPassword = document.querySelector('form input[name="confirm_password"]') as Element
+    btnSubmit = document.querySelector('form button[type="submit"]') as Element
   })
 
   test('Show error message required', async () => {
-    const btnSubmit = document.querySelector('form button[type="submit"]') as Element
     fireEvent.click(btnSubmit)
     await waitFor(async () => {
       expect(await screen.findByText(/Email là bắt buộc/i)).toBeTruthy()
@@ -25,9 +34,6 @@ describe('Register page', () => {
   })
 
   test('Should display matching error when email is malformed ', async () => {
-    const inputEmail = document.querySelector('form input[type="email"]') as Element
-    const btnSubmit = document.querySelector('form button[type="submit"]') as Element
-
     fireEvent.change(inputEmail, {
       target: {
         value: 'test'
@@ -41,9 +47,6 @@ describe('Register page', () => {
   })
 
   test('Should display min length error password', async () => {
-    const inputPassword = document.querySelector('form input[name="password"]') as Element
-    const btnSubmit = document.querySelector('form button[type="submit"]') as Element
-
     fireEvent.change(inputPassword, {
       target: {
         value: '123'
@@ -57,10 +60,6 @@ describe('Register page', () => {
   })
 
   test('Should display error when confirm password not match', async () => {
-    const inputPassword = document.querySelector('form input[name="password"]') as Element
-    const inputConfirmPassword = document.querySelector('form input[name="confirm_password"]') as Element
-    const btnSubmit = document.querySelector('form button[type="submit"]') as Element
-
     fireEvent.change(inputPassword, {
       target: {
         value: '123'
@@ -77,6 +76,35 @@ describe('Register page', () => {
     // await logScreen()
     await waitFor(() => {
       expect(screen.getByText(/Mật khẩu nhập lại không khớp/i)).toBeInTheDocument()
+    })
+  })
+
+  test('Should hide error messsage when input value is correct', async () => {
+    fireEvent.change(inputEmail, {
+      target: {
+        value: 'viet@gmail.com'
+      }
+    })
+
+    fireEvent.change(inputPassword, {
+      target: {
+        value: '123123'
+      }
+    })
+
+    fireEvent.change(inputConfirmPassword, {
+      target: {
+        value: '123123'
+      }
+    })
+
+    fireEvent.click(btnSubmit)
+    // await logScreen()
+    await waitFor(() => {
+      expect(screen.queryByText(/Email là bắt buộc/i)).toBeNull()
+      expect(screen.queryByText(/Email không đúng định dạng/i)).toBeNull()
+      expect(screen.queryByText(/Độ dài từ 6-160 kí tự/i)).toBeNull()
+      expect(screen.queryByText(/Mật khẩu nhập lại không khớp/i)).toBeNull()
     })
   })
 })

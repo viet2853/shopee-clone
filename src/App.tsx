@@ -21,27 +21,16 @@ function App() {
     }
   }, [reset])
 
-  const queryClient = new QueryClient({
-    defaultOptions: {
-      queries: {
-        refetchOnWindowFocus: false,
-        retry: false
-      }
-    }
-  })
-
   return (
-    <QueryClientProvider client={queryClient}>
-      <HelmetProvider>
-        <ErrorBoundary>
-          <AppProvider>
-            {routeElements}
-            <ToastContainer />
-          </AppProvider>
-        </ErrorBoundary>
-        <ReactQueryDevtools initialIsOpen={false} />
-      </HelmetProvider>
-    </QueryClientProvider>
+    <HelmetProvider>
+      <ErrorBoundary>
+        <AppProvider>
+          {routeElements}
+          <ToastContainer />
+        </AppProvider>
+      </ErrorBoundary>
+      <ReactQueryDevtools initialIsOpen={false} />
+    </HelmetProvider>
   )
 }
 
