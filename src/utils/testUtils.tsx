@@ -3,6 +3,7 @@ import { render, screen, waitFor, type waitForOptions } from '@testing-library/r
 import userEvent from '@testing-library/user-event'
 import { BrowserRouter } from 'react-router-dom'
 import App from 'src/App'
+import { AppProvider, getInitialAppContext } from 'src/context/App.context'
 import { expect } from 'vitest'
 
 export const delay = (timeout: number) => {
@@ -57,12 +58,15 @@ const Provider = createWrapper()
 
 export const renderWithRoute = ({ route = '/' } = {}) => {
   window.history.pushState({}, 'Test App render', route)
+  const defaultValueInitialAppcontext = getInitialAppContext()
 
   return {
     user: userEvent.setup(),
     ...render(
       <Provider>
-        <App />
+        <AppProvider defaultValueInitialAppcontext={defaultValueInitialAppcontext}>
+          <App />
+        </AppProvider>
       </Provider>,
       { wrapper: BrowserRouter }
     )
