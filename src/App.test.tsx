@@ -41,6 +41,5 @@ describe('App', () => {
     await waitFor(() => {
       expect(screen.getByText(/Something is missing/i)).toBeInTheDocument()
     })
-    // await logScreen()
   })
 })

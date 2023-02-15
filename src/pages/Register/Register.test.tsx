@@ -70,7 +70,6 @@ describe('Register page', () => {
     })
 
     fireEvent.click(btnSubmit)
-    // await logScreen()
     await waitFor(() => {
       expect(screen.getByText(/Mật khẩu nhập lại không khớp/i)).toBeInTheDocument()
     })
@@ -96,7 +95,6 @@ describe('Register page', () => {
     })
 
     fireEvent.click(btnSubmit)
-    // await logScreen()
     await waitFor(() => {
       expect(screen.queryByText(/Email là bắt buộc/i)).toBeNull()
       expect(screen.queryByText(/Email không đúng định dạng/i)).toBeNull()

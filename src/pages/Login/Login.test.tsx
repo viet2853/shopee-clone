@@ -49,7 +49,6 @@ describe('Login page', () => {
     })
 
     fireEvent.click(btnSubmit)
-    // await logScreen()
     await waitFor(() => {
       expect(screen.getByText(/Độ dài từ 6-160 kí tự/i)).toBeInTheDocument()
     })
@@ -74,7 +73,6 @@ describe('Login page', () => {
     })
 
     fireEvent.submit(btnSubmit)
-    // await logScreen()
     await waitFor(() => {
       expect(document.querySelector('title')?.textContent).toBe('Home | VietStore')
     })

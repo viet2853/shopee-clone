@@ -9,6 +9,7 @@ import matchers from '@testing-library/jest-dom/matchers'
 
 expect.extend(matchers)
 
+// eslint-disable-next-line prettier/prettier
 const server = setupServer(...authRequests, ...productRequests, ...categoriesRequests, ...purchasesRequests, ...userRequests)
 
 // Start server before all tests

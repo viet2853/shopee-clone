@@ -296,10 +296,49 @@ const productsRes = {
   }
 }
 
+const productDetailRes = {
+  message: 'Lấy sản phẩm thành công',
+  data: {
+    _id: '60af722af1a3041b289d8ba1',
+    images: [
+      'https://api-ecom.duthanhduoc.com/images/8fdcc6d3-70ea-4853-954e-b8776fbab6fa.jpg',
+      'https://api-ecom.duthanhduoc.com/images/531834bf-0bc0-4cdc-941e-9b5204d97b0d.jpg',
+      'https://api-ecom.duthanhduoc.com/images/4cec69e1-0cc8-4c2c-8f2e-19340cc89469.jpg',
+      'https://api-ecom.duthanhduoc.com/images/fb0cb1b5-8987-4d0b-bf40-428e91cb417c.jpg',
+      'https://api-ecom.duthanhduoc.com/images/21643c6a-8e9f-46c7-a587-f7c5aa5034c9.jpg',
+      'https://api-ecom.duthanhduoc.com/images/735f43ba-992c-4ace-a3fe-e097da0c8877.jpg',
+      'https://api-ecom.duthanhduoc.com/images/e3371592-f52a-43f4-82dc-bc8da71a023b.jpg',
+      'https://api-ecom.duthanhduoc.com/images/344baaa7-6507-4a1c-a619-9e199638cbff.jpg',
+      'https://api-ecom.duthanhduoc.com/images/37b8be77-cb17-4126-8dae-97ff7bb19014.jpg'
+    ],
+    price: 194555,
+    rating: 4.1,
+    price_before_discount: 299999,
+    quantity: 75,
+    sold: 55,
+    view: 673,
+    name: '[KHUYẾN MÃI 35%] Áo Thun POLO Nam, Tay Ngắn Áo Cổ Sọc, Chất Liệu Cá Sấu Cao Cấp - Nhiều màu- Đủ Size',
+    description:
+      '<p>&Aacute;o Polo nam tay ngắn ph&ugrave; hợp với nhiều ho&agrave;n cảnh: c&ocirc;ng sở, mặc nh&agrave;, đi học, đi chơi, du lịch, thể thao, Gym, l&agrave;m qu&agrave; tặng&hellip;&hellip; Tạo cảm gi&aacute;c trẻ trung cho người mặc, phối hợp được với nhiều loại quần như quần kaki, quần t&acirc;y, quần jeans, quần short&hellip;..</p><p><br />Th&ocirc;ng tin sản phẩm</p><p>T&ecirc;n sản phẩm: &Aacute;o Thun POLO Nam, Tay Ngắn &Aacute;o Cổ Sọc, &aacute;o thun nam, &aacute;o c&aacute; sấu<br />Xuất xứ: Việt Nam<br />M&agrave;u sắc: 10 M&agrave;u: Trắng, Đen, Xanh l&aacute;, Xanh R&ecirc;u, Cam Đất, Đỏ Đ&ocirc;, Xanh Biển, X&aacute;m Kh&oacute;i, Coffee, Xanh Đen<br />Size: S, M, L, XL<br />--------------------------------------</p><p>Hướng dẫn chọn size theo chiều cao c&acirc;n nặng</p><p>Th&ocirc;ng số: <br />Size S: C&acirc;n nặng từ 53 - 60kg <br />Size M: C&acirc;n nặng từ 60 - 68kg <br />Size L: C&acirc;n nặng từ 68 - 78kg <br />Size XL: C&acirc;n nặng từ 78 - 85kg<br />--------------------------------------</p><p>V&igrave; sao n&ecirc;n mua h&agrave;ng tại Lozano</p><p>Chất lượng vải: Chất liệu thun C&aacute; Sấu 100% cotton, bề mặt mềm mịn, th&ocirc;ng tho&aacute;ng, co d&atilde;n gi&uacute;p giảm nhiệt cực nhanh. (c&oacute; thể th&ecirc;m đặc điểm m&agrave;u sắc v&agrave;o nếu &aacute;o c&oacute; những đặc điểm ri&ecirc;ng biệt)Độ d&agrave;y vừa phải đảm bảo giữ form d&aacute;ng, bền m&agrave;u sau nhiều lần giặt. Những đường may tỉ mỉ cũng l&agrave; một đặc điểm đ&aacute;ng ch&uacute; &yacute; của &aacute;o Polo b&ecirc;n Lozano, chất liệu tho&aacute;ng m&aacute;t thấm h&uacute;t mồ h&ocirc;i tốt gi&uacute;p hoạt động thoải m&aacute;i trong c&ocirc;ng việc h&agrave;ng ng&agrave;y<br />Gi&aacute; cả &aacute;o Polo b&ecirc;n shop Lozano &ldquo;hời&rdquo; nhưng chất lượng &aacute;o tốt, với ti&ecirc;u ch&iacute; đưa đến kh&aacute;ch h&agrave;ng sản phẩm chất lượng đảm bảo, gi&aacute; cả phải chăng. <br />Sự uy t&iacute;n của shop được đưa l&ecirc;n h&agrave;ng đầu. <br />D&ugrave; vậy, nhưng với lượng sản phẩm b&aacute;n đi h&agrave;ng ng&agrave;y của Lozano tại cửa h&agrave;ng v&agrave; c&aacute;c s&agrave;n thương mại điện tử rất nhiều, n&ecirc;n sẽ kh&ocirc;ng tr&aacute;nh khỏi sai s&oacute;t khi sản phẩm đến tay kh&aacute;ch h&agrave;ng. Lozano mong sự th&ocirc;ng cảm đến từ qu&yacute; kh&aacute;ch v&agrave; c&oacute; cam kết về việc đổi h&agrave;ng nếu h&agrave;ng h&oacute;a bị lỗi</p><p>CH&Uacute;NG T&Ocirc;I CAM KẾT:</p><p>Cam kết chất lượng v&agrave; mẫu quần &aacute;o giống 100% trong h&igrave;nh ảnh v&agrave; th&ocirc;ng tin m&ocirc; tả<br />Cam kết được đổi sản phẩm trong v&ograve;ng 14 ng&agrave;y <br />Li&ecirc;n hệ đổi h&agrave;ng ngay với bộ phận b&aacute;n h&agrave;ng qua hotline 0775.922.123</p><p><br />Nhận ship COD to&agrave;n quốc, với dịch vụ giao h&agrave;ng rẻ, tiết kiệm<br />Ch&uacute;ng t&ocirc;i mong qu&yacute; kh&aacute;ch khi nhận được sản phẩm sẽ đ&aacute;nh gi&aacute; ch&uacute;ng t&ocirc;i một c&aacute;ch kh&aacute;ch quan nhất dựa v&agrave;o những dấu * v&agrave; những h&igrave;nh ảnh, video cụ thể. Đ&oacute; l&agrave; những đ&oacute;ng g&oacute;p v&ocirc; c&ugrave;ng qu&yacute; gi&aacute; để Lozano VietNam c&oacute; thể thay đổi v&agrave; ho&agrave;n thiện hơn<br />Địa chỉ cửa h&agrave;ng: 1148 C&aacute;ch Mạng Th&aacute;ng 8, Phường 4, Quận T&acirc;n B&igrave;nh, TP. HCM<br />Hotline: 0775.922.123</p><p>#aothunnam #aopolo #thunpolo #aophongnam #aocobe #aonam #aothunnamcobe #thunnam #ao #polonam #aothuntay #aococtaynam #aothuntayngan #aothuncobe #aothun #aophong #aopolocosoc #aothunsoc #aopolosoc #polosoc #polotayngan #aothunpolo</p>',
+    category: {
+      _id: '60aba4e24efcc70f8892e1c6',
+      name: 'Áo thun',
+      __v: 0
+    },
+    image: 'https://api-ecom.duthanhduoc.com/images/8fdcc6d3-70ea-4853-954e-b8776fbab6fa.jpg',
+    createdAt: '2021-05-27T10:19:22.177Z',
+    updatedAt: '2023-02-15T10:38:51.729Z'
+  }
+}
+
 const productRequest = rest.get(`${config.baseUrl}products`, (req, res, ctx) => {
   return res(ctx.status(HttpStatusCode.Ok), ctx.json(productsRes))
 })
 
-const productRequests = [productRequest]
+const productDetailRequest = rest.get(`${config.baseUrl}products/:id`, (req, res, ctx) => {
+  return res(ctx.status(HttpStatusCode.Ok), ctx.json(productDetailRes))
+})
+
+const productRequests = [productRequest, productDetailRequest]
 
 export default productRequests
