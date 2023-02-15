@@ -1,12 +1,8 @@
 import HttpStatusCode from 'src/constants/httpStatusCode.enum'
+import { access_token_1s, refresh_token_1000days } from 'src/msw/auth.msw'
 import { describe, it, expect, beforeEach } from 'vitest'
 import { saveAccessTokenToLS, saveRefreshTokenToLS } from '../auth'
 import { http, Http } from '../https'
-
-const access_token_1s =
-  'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYzYWFmZmZkNmQ3YzYyMDM0MDg0ZjNjOCIsImVtYWlsIjoidmlldEBnbWFpbC5jb20iLCJyb2xlcyI6WyJVc2VyIl0sImNyZWF0ZWRfYXQiOiIyMDIzLTAyLTA3VDA1OjE1OjM0LjQyNloiLCJpYXQiOjE2NzU3NDY5MzQsImV4cCI6MTY3NTc0NjkzNX0.gQ7loWxVg3XacceCc20APCvBm99kxBgt1jddr0eDcYc'
-const refresh_token_1days =
-  'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYzYWFmZmZkNmQ3YzYyMDM0MDg0ZjNjOCIsImVtYWlsIjoidmlldEBnbWFpbC5jb20iLCJyb2xlcyI6WyJVc2VyIl0sImNyZWF0ZWRfYXQiOiIyMDIzLTAyLTA3VDA1OjE1OjM0LjQyNloiLCJpYXQiOjE2NzU3NDY5MzQsImV4cCI6MTE2NzU3NDY5MzR9.I76SsNe3MO3WDbAsLPzn8mLDJYJ_MLOqz43viE7tstQ'
 
 describe('http axios', () => {
   let http = new Http().instance
@@ -31,7 +27,7 @@ describe('http axios', () => {
 
   it('Refresh Token', async () => {
     saveAccessTokenToLS(access_token_1s)
-    saveRefreshTokenToLS(refresh_token_1days)
+    saveRefreshTokenToLS(refresh_token_1000days)
     const httpNew = new Http().instance
     const res = await httpNew.get('me')
     expect(res.status).toBe(HttpStatusCode.Ok)

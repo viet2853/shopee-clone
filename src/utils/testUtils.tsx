@@ -43,15 +43,13 @@ const createWrapper = () => {
     logger: {
       log: console.log,
       warn: console.warn,
-      //Don't log errors in terminal
+      // no more errors on the console
       error: () => null
     }
   })
-
-  const Provider = ({ children }: { children: React.ReactNode }) => {
-    return <QueryClientProvider client={queryClient}>{children}</QueryClientProvider>
-  }
-
+  const Provider = ({ children }: { children: React.ReactNode }) => (
+    <QueryClientProvider client={queryClient}>{children}</QueryClientProvider>
+  )
   return Provider
 }
 
