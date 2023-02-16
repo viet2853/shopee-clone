@@ -1,5 +1,5 @@
 import { URL_LOGIN, URL_LOGOUT, URL_REFRESH_TOKEN, URL_REGISTER } from './../api/auth.api'
-import axios, { type AxiosInstance } from 'axios'
+import axios, { AxiosError, type InternalAxiosRequestConfig, type AxiosInstance } from 'axios'
 import HttpStatusCode from 'src/constants/httpStatusCode.enum'
 import { toast } from 'react-toastify'
 import { AuthResponse } from 'src/types/auth.type'
@@ -68,10 +68,12 @@ export class Http {
         }
         return response
       },
-      (error) => {
+      (error: AxiosError) => {
         //Không phải lỗi 401 và 422 thì toast lỗi
         if (
-          ![HttpStatusCode.UnprocessableEntity, HttpStatusCode.Unauthorized].includes(error.response?.status as number)
+          ![HttpStatusCode.UnprocessableEntity, HttpStatusCode.Unauthorized].includes(
+            error.response?.status as number
+          )
         ) {
           // eslint-disable-next-line @typescript-eslint/no-explicit-any
           const data: any | undefined = error.response?.data
@@ -80,7 +82,7 @@ export class Http {
         }
 
         if (isAxiosUnauthorizedError<ErrorResponse<{ name: string; message: string }>>(error)) {
-          const config = error.response?.config || {}
+          const config = (error.response?.config || {}) as InternalAxiosRequestConfig
           const { url } = config
 
           if (isExpireAccessTokenError(error) && url !== URL_REFRESH_TOKEN) {
@@ -93,7 +95,10 @@ export class Http {
                 })
 
             return this.refreshTokenRequest.then((access_token) => {
-              return this.instance({ ...config, headers: { ...config.headers, authorization: access_token } })
+              return this.instance({
+                ...config,
+                headers: { ...config.headers, authorization: access_token }
+              })
             })
           }
 
